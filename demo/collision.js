@@ -1,16 +1,12 @@
 
-// performs a quick intersection test between two hulls (which contain a 2D vector for position and width and height of the hull)
-
-function hullIntersects(h0, h1){
+// performs a quick intersection test between two arrays of verts which form two hulls 
+// perform this test first, then if it's positive, call satAABB for a more detailed test
+function hullVertsIntersect(verts0, verts1){
           
     if ( 
-        h0.pos.x > (h1.pos.x + h1.w) || 
-        
-        h0.pos.y > (h1.pos.y + h1.h) ||
-        
-        (h0.pos.x + h0.w) < h1.pos.x || 
-        
-        (h0.pos.y + h0.h) < h1.pos.y){
+        verts0[0][0] > verts1[1][0] || verts0[0][1] > verts1[1][1] ||
+        verts0[1][0] < verts1[0][0] || verts0[1][1] < verts1[0][1])
+    {
       
         return false;
     }
@@ -19,6 +15,21 @@ function hullIntersects(h0, h1){
         return true;    
     }
 }
+
+// check if there are overlapping projected axes
+function areOverlapping(a, b){
+    return a[0] <= b[1] && a[1] >= b[0];
+}
+
+function getOverlapLength(a,b){
+	if (!areOverlapping(a, b)) { 
+        return 0.0; 
+    }
+    else { 
+	   return min(a[1], b[1]) - max(a[0], b[0]);
+    }
+}
+
 
 //                        INFO
 // perform detailed test using SAT (separating axis theorem)
@@ -37,7 +48,7 @@ function satAABB(verts0, verts1){
     //get perpendicular axes for both vertex arrays
     let axes       = getPerpendicularAxes(verts0, verts1);
     let minOverlap = Infinity;
-    
+ 
     // initialize minimum translation vector to zero 
     let mtv        = Vector(0.0, 0.0);    
     
@@ -51,8 +62,8 @@ function satAABB(verts0, verts1){
         let proj1 = verticesProjectOnAxis(verts1, axis);
         
         // calculate overlap from projection
-        let overlap = getOverlapLength(proj0, proj1);
-       
+        let overlap = getOverlapLength( proj0, proj1);
+      
         if (overlap == 0.0){
             // if overlap is equal to zero then there is no collision
             return [false, Vector(0,0)];
@@ -61,7 +72,7 @@ function satAABB(verts0, verts1){
             if (overlap  < minOverlap){
                 
                 minOverlap = overlap;
-                mtv = axis.mult(minOverlap);
+                mtv = [axis[0] * minOverlap, axis[1] * minOverlap];
                 
             }
         }
@@ -72,15 +83,6 @@ function satAABB(verts0, verts1){
     
 }
 
-function getVertices(hull){
-    return [
-        [hull.pos.x, hull.pos.y],
-        [hull.pos.x + hull.w, hull.pos.y],
-        [hull.pos.x + hull.w, hull.pos.y + hull.h],
-        [hull.pos.x, hull.pos.y + hull.h]
-    ];
-}
-
 function verticesProjectOnAxis(vertices, axis){
     
     let mn = Infinity;
@@ -88,7 +90,7 @@ function verticesProjectOnAxis(vertices, axis){
 
     for (let i=0; i<vertices.length; i++){
 
-        let proj = vertices[i][0] * axis.x + vertices[i][1] * axis.y;
+        let proj = vertices[i][0] * axis[0] + vertices[i][1] * axis[1];
    
         if (proj < mn){ mn = proj; }
         if (proj > mx){ mx = proj; }
@@ -96,28 +98,25 @@ function verticesProjectOnAxis(vertices, axis){
     }
     
     
-    return Vector(mn, mx);
+    return [mn, mx];
 }
 
-function areOverlapping(a, b){
-    return a.x <= b.y && a.y >= b.x;
-}
-
-function getOverlapLength(a,b){
-	if (!areOverlapping(a, b)) { 
-        return 0.0; 
-    }
-    else { 
-	   return min(a.y, b.y) - max(a.x, b.x);
-    }
-}
 
 function getPerpendicularAxis(vertices, index){
+    
     let v0  = vertices[index + 1];
     let v1  = vertices[index];
     
-    let dir = Vector( v1[0] - v0[0], v1[1] - v0[1] );
-    return dir.getNormalized().getNormal();
+    let dir    = [v1[0] - v0[0], v1[1] - v0[1]];
+    let dirMag = Math.sqrt(dir[0] * dir[0] + dir[1] * dir[1]);
+    
+    // normalize dir
+    
+    dir[0] = dir[0] / dirMag;
+    dir[1] = dir[1] / dirMag;
+    
+    // return normal of dir
+    return [-dir[1], dir[0]];
     
 }
 function getPerpendicularAxes(vertices0, vertices1){

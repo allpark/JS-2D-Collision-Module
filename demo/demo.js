@@ -60,6 +60,9 @@ function collisionCheck(obj0, obj1){
 
     let collided      = collisionData[0];
     let mtv           = collisionData[1];
+    
+    // convert mtv to a vector
+    mtv = Vector(mtv[0], mtv[1]);
 
     if  (collided) {
 

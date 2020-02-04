@@ -25,6 +25,35 @@ class Hull {
     }
     
 }
+// hull helper functions
+
+function getVertices(hull){
+    return [
+        [hull.pos.x, hull.pos.y],
+        [hull.pos.x + hull.w, hull.pos.y],
+        [hull.pos.x + hull.w, hull.pos.y + hull.h],
+        [hull.pos.x, hull.pos.y + hull.h]
+    ];
+}
+
+function hullIntersects(h0, h1){
+          
+    if ( 
+        h0.pos.x > (h1.pos.x + h1.w) || 
+        
+        h0.pos.y > (h1.pos.y + h1.h) ||
+        
+        (h0.pos.x + h0.w) < h1.pos.x || 
+        
+        (h0.pos.y + h0.h) < h1.pos.y){
+      
+        return false;
+    }
+        
+    else{
+        return true;    
+    }
+}
 
 function createHull(pos, w, h){
     return new Hull(pos, w, h);
