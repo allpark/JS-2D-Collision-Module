@@ -13,7 +13,7 @@ To install this module, drop and include the following files into your project:
 
 
 ## Functions 
-### hullVertsIntersect
+### Name: hullVertsIntersect
 ##### Description
 
 Performs an intersection test on two axis-aligned hulls (which contain an array of vertices in clockwise order)
@@ -35,7 +35,7 @@ bool - whether given hulls intersect or not
 > let intersecting = hullVertsIntersect( [[0,0],[100,100]], [[90,90],[120,120]]);
 
 ##
-### satAABB
+### Name: satAABB
 ##
 
 ##### Description
