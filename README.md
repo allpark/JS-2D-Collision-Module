@@ -15,14 +15,21 @@ To install this module, drop and include the following files into your project:
 
 #### hullVertsIntersect
 ##### Description
+
 Performs an intersection test on two axis-aligned hulls (which contain an array of vertices in clockwise order)
 ##### Usage
 hullVertsIntersect(bb0, bb1)
+
 ##### Parameters
+
 bb0 A 2D array of two min max points which form a box
+
 bb1 A 2D array of two min max points which form a box
+
+![Diagram of min max box](https://github.com/allpark/JS-2D-Collision-Module/blob/master/diagram_minmax.png)
 ##### Value
 bool - whether given hulls intersect or not 
+
 ##### Example
 hullVertsIntersect( [[0,0],[100,100]], [[90,90],[111,111]])
 
