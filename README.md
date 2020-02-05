@@ -32,7 +32,40 @@ Performs an intersection test on two axis-aligned hulls (which contain an array 
 bool - whether given hulls intersect or not 
 
 ##### Example
-> let intersecting = hullVertsIntersect( [[0,0],[100,100]], [[90,90],[111,111]])
+> let intersecting = hullVertsIntersect( [[0,0],[100,100]], [[90,90],[120,120]]);
+
+
+#### satAABB
+##### Description
+
+Performs an intersection test on two axis-aligned hulls (which contain an array of vertices in clockwise order)
+Uses simplified separating axis theorem (SAT).
+
+##### Usage
+> satAABB(verts0, verts1)
+
+##### Parameters
+
+1. verts0 - A 2D array of vertices (points)
+
+2. verts1 - A 2D array of vertices (points)
+
+##### Value
+1. bool  - whether given hulls intersect or not 
+2. array - minimum translation vector for pushing verts0 out of verts1 so that they no longer intersect
+##### Example
+```
+let collisionData = satAABB( [[0,0],[100,0], [100,100], [0,100]], [[80,0],[200,0], [200,100], [80,100]]);
+
+let intersecting  = collisionData[0];
+let mtv           = collisionData[1];
+
+print(intersecting)
+print(mtv)
+
+true
+[20, 0]
+```
 
 ## Technologies
 
