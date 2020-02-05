@@ -14,7 +14,6 @@ To install this module, drop and include the following files into your project:
 
 ## Functions 
 ### hullVertsIntersect
-#
 ##### Description
 
 Performs an intersection test on two axis-aligned hulls (which contain an array of vertices in clockwise order)
