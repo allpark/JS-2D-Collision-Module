@@ -26,7 +26,7 @@ Performs an intersection test on two axis-aligned hulls (which contain an array 
 
 2. bb1 - A 2D array of two min max points which form a box
 
-![Diagram of the min max box model](https://github.com/allpark/JS-2D-Collision-Module/blob/master/diagram_minmax.png)
+![Diagram of the min max box model](https://github.com/allpark/JS-2D-Collision-Module/blob/master/diagram_minmax.jpg)
 
 ##### Value
 bool - whether given hulls intersect or not 
