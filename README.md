@@ -4,7 +4,7 @@ This is a simple library that allows you to quickly implement collision detectio
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+These instructions will get you a copy of the module up and running on your local machine for development and testing purposes. 
 
 ## Installing
 
@@ -33,6 +33,7 @@ bool - whether given hulls intersect or not
 
 ##### Example
 > let intersecting = hullVertsIntersect( [[0,0],[100,100]], [[90,90],[120,120]]);
+
 
 ##
 ### Name: satAABB
