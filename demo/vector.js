@@ -153,7 +153,7 @@ function vector(x,y){
             return this.x == x.x && this.y == x.y;
         } 
         else {
-            return this.x === a && this.y === b;
+            return this.x == a && this.y == b;
 
         }
     };
