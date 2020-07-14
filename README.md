@@ -22,9 +22,9 @@ Performs an intersection test on two axis-aligned hulls (which contain an array 
 
 ##### Parameters
 
-1. bb0 - A 2D array of two min max points which form a box
+1. bb0 - A 2D array of two bounding box points which form a box
 
-2. bb1 - A 2D array of two min max points which form a box
+2. bb1 - A 2D array of two bounding box points which form a box
 
 ![Diagram of the min max box model](https://github.com/allpark/JS-2D-Collision-Module/blob/master/diagram_minmax.jpg)
 
